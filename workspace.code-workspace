@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "internal"
+		},
+		{
+			"path": "cmd"
+		},
+		{
+			"path": "configs"
+		},
+		{
+			"path": "migrations"
+		}
+	],
+	"settings": {}
+}
