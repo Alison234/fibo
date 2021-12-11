@@ -3,14 +3,16 @@ package apiserver
 import (
 	"net/http"
 
+	"github.com/go/http-rest-api/fibonaci"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
 
 type APIserver struct {
-	config *Config
-	logger *logrus.Logger
-	router *mux.Router
+	config           *Config
+	logger           *logrus.Logger
+	router           *mux.Router
+	fibonaciProvider fibonaci.FibonaciProvider
 }
 
 func New(config *Config) *APIserver {
@@ -43,6 +45,6 @@ func (s *APIserver) configureLogger() error {
 
 func (s *APIserver) configureHandlers() {
 	s.router.HandleFunc("/health", s.health())
-	s.router.HandleFunc("/to", s.hundleDifferentFunc())
-	s.router.HandleFunc("/fromTo", s.hundleDifferentFunc())
+	s.router.HandleFunc("/to", s.hundleCalculateTo())
+	s.router.HandleFunc("/fromTo", s.hundleCalculateFromTo())
 }

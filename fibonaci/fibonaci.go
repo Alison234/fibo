@@ -3,30 +3,44 @@ package fibonaci
 import "errors"
 
 type Fibonaci struct {
-	index int
-	value int
+	Index int `json:"index"`
+	Value int `json:"value"`
 }
 
-func MakeFibonaci(startIndex int, endIndex int) ([]Fibonaci, error) {
+type FibonaciProvider struct {
+	FibonaciSequence []Fibonaci
+}
+
+func (f *FibonaciProvider) NewFibonaciProvider() *FibonaciProvider {
+	return &FibonaciProvider{FibonaciSequence: []Fibonaci{}}
+}
+
+func (f *FibonaciProvider) Calculate(startIndex int, endIndex int) error {
 	if startIndex < 0 || endIndex < 0 {
-		return nil, errors.New("index must be above zero")
+		return errors.New("index must be above zero")
 	}
 
 	if startIndex > endIndex {
-		return nil, errors.New("end index must be more start")
+		return errors.New("end index must be more start")
 	}
+
+	f.FibonaciSequence = makeFibonaci(startIndex, endIndex)
+	return nil
+}
+
+func makeFibonaci(startIndex int, endIndex int) []Fibonaci {
 	result := make([]Fibonaci, 0)
-	result = append(result, Fibonaci{index: 0, value: 0})
+	result = append(result, Fibonaci{Index: 0, Value: 0})
 	x := 0
 	y := 1
 	value := 1
 
 	for i := 0; i < endIndex; i++ {
-		result = append(result, Fibonaci{index: i + 1, value: value})
+		result = append(result, Fibonaci{Index: i + 1, Value: value})
 		value = x + y
 		x = y
 		y = value
 	}
 
-	return result[startIndex : endIndex+1], nil
+	return result[startIndex : endIndex+1]
 }
