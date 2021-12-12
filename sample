@@ -1,0 +1,4 @@
+curl -X POST -H "Content-Type: application/json" \    -d '{"StartIndex": "5", "EndIndex": "10"}' \    http://localhost:8080/fromTO
+
+
+curl -XPOST http://localhost:8080/to -d "{ \"StartIndex\" : 5,\"EndIndex\" : 20 }"
