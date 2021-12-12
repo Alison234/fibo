@@ -18,7 +18,7 @@ type APIserver struct {
 }
 
 func New(config *Config) *APIserver {
-	cacheStore := cache.NewMemCacher("localhost:12143")
+	cacheStore := cache.NewMemCacher("localhost:11211")
 	return &APIserver{
 		config: config,
 		logger: logrus.New(),
