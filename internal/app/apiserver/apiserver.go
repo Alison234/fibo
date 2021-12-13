@@ -13,7 +13,7 @@ type APIserver struct {
 	config           *Config
 	logger           *logrus.Logger
 	router           *mux.Router
-	fibonaciProvider fibonaci.FibonaciProvider
+	fibonaciProvider fibonaci.FibonacciProvider
 	cache            cache.Cache
 }
 

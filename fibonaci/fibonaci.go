@@ -2,20 +2,20 @@ package fibonaci
 
 import "errors"
 
-type Fibonaci struct {
+type Fibonacci struct {
 	Index int `json:"index"`
 	Value int `json:"value"`
 }
 
-type FibonaciProvider struct {
-	FibonaciSequence []Fibonaci
+type FibonacciProvider struct {
+	FibonacciSequence []Fibonacci
 }
 
-func (f *FibonaciProvider) NewFibonaciProvider() *FibonaciProvider {
-	return &FibonaciProvider{FibonaciSequence: []Fibonaci{}}
+func (f *FibonacciProvider) NewFibonacciProvider() *FibonacciProvider {
+	return &FibonacciProvider{FibonacciSequence: []Fibonacci{}}
 }
 
-func (f *FibonaciProvider) Calculate(startIndex int, endIndex int) error {
+func (f *FibonacciProvider) Calculate(startIndex int, endIndex int) error {
 	if startIndex < 0 || endIndex < 0 {
 		return errors.New("index must be above zero")
 	}
@@ -24,19 +24,19 @@ func (f *FibonaciProvider) Calculate(startIndex int, endIndex int) error {
 		return errors.New("end index must be more start")
 	}
 
-	f.FibonaciSequence = makeFibonaci(startIndex, endIndex)
+	f.FibonacciSequence = makeFibonacci(startIndex, endIndex)
 	return nil
 }
 
-func makeFibonaci(startIndex int, endIndex int) []Fibonaci {
-	result := make([]Fibonaci, 0)
-	result = append(result, Fibonaci{Index: 0, Value: 0})
+func makeFibonacci(startIndex int, endIndex int) []Fibonacci {
+	result := make([]Fibonacci, 0)
+	result = append(result, Fibonacci{Index: 0, Value: 0})
 	x := 0
 	y := 1
 	value := 1
 
 	for i := 0; i < endIndex; i++ {
-		result = append(result, Fibonaci{Index: i + 1, Value: value})
+		result = append(result, Fibonacci{Index: i + 1, Value: value})
 		value = x + y
 		x = y
 		y = value

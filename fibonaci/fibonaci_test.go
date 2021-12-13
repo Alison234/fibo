@@ -10,12 +10,12 @@ func TestCalculateFibonaci(t *testing.T) {
 	testCases := []struct {
 		startIndex int
 		endIndex   int
-		expected   []Fibonaci
+		expected   []Fibonacci
 	}{
 		{
 			startIndex: 0,
 			endIndex:   10,
-			expected: []Fibonaci{
+			expected: []Fibonacci{
 				{Index: 0, Value: 0},
 				{Index: 1, Value: 1},
 				{Index: 2, Value: 1},
@@ -32,7 +32,7 @@ func TestCalculateFibonaci(t *testing.T) {
 		{
 			startIndex: 5,
 			endIndex:   10,
-			expected: []Fibonaci{
+			expected: []Fibonacci{
 				{Index: 5, Value: 5},
 				{Index: 6, Value: 8},
 				{Index: 7, Value: 13},
@@ -46,7 +46,7 @@ func TestCalculateFibonaci(t *testing.T) {
 	for _, tc := range testCases {
 		tc := tc
 		t.Run("fibonaci", func(t *testing.T) {
-			actualExpr := makeFibonaci(tc.startIndex, tc.endIndex)
+			actualExpr := makeFibonacci(tc.startIndex, tc.endIndex)
 			require.EqualValues(t, tc.expected, actualExpr)
 		})
 	}

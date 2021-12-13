@@ -1,6 +1,6 @@
 .PHONY: build
 build :
-	go build -v ./cmd/apiserver
+	go build -v ./apiserver
 
 .DEFAULT_GOAL := build
 

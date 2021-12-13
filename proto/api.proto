@@ -1,0 +1,21 @@
+syntax = "proto3";
+package api;
+option go_package = "./";
+
+service FibonaciApi {
+    rpc Seq(Request) returns (Response) {}
+}
+
+message Request {
+    int32 From = 1;
+    int32 To = 2;
+}
+
+message Response {
+    repeated Fib Seq = 1;
+}
+
+message Fib {
+    int32 index =1;
+    int32 value =2;
+}

@@ -27,6 +27,7 @@ func (s *APIserver) hundleCalculateTo(w http.ResponseWriter, r *http.Request) {
 	if seq != nil {
 		s.logger.Infof("success get value from cache on key %v\n", key)
 		s.WriteHTTPResponse(SuccessResponce(seq), w)
+		return
 	}
 
 	err = s.fibonaciProvider.Calculate(0, req.EndIndex)
@@ -35,7 +36,7 @@ func (s *APIserver) hundleCalculateTo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	seq = s.fibonaciProvider.FibonaciSequence
+	seq = s.fibonaciProvider.FibonacciSequence
 	err = s.cache.SetValue(key, seq)
 	if err != nil {
 		s.logger.Infof("failed set value from cache on key %v,err= %v\n", key, err)
@@ -52,7 +53,7 @@ func (s *APIserver) hundleCalculateFromTo(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	key := makeCacheKey(0, req.EndIndex)
+	key := makeCacheKey(req.StartIndex, req.EndIndex)
 	seq, err := s.cache.GetValue(key)
 	if err != nil {
 		s.logger.Infof("failed get value from cache on key %v,err= %v\n", key, err)
@@ -60,6 +61,7 @@ func (s *APIserver) hundleCalculateFromTo(w http.ResponseWriter, r *http.Request
 	if seq != nil {
 		s.logger.Infof("success get value from cache on key %v\n", key)
 		s.WriteHTTPResponse(SuccessResponce(seq), w)
+		return
 	}
 
 	err = s.fibonaciProvider.Calculate(req.StartIndex, req.EndIndex)
@@ -68,11 +70,12 @@ func (s *APIserver) hundleCalculateFromTo(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	seq = s.fibonaciProvider.FibonaciSequence
+	seq = s.fibonaciProvider.FibonacciSequence
 	err = s.cache.SetValue(key, seq)
 	if err != nil {
 		s.logger.Infof("failed set value from cache on key %v,err= %v\n", key, err)
 	}
 
+	s.logger.Infof("success set value on cache with key %v,err= %v\n", key, err)
 	s.WriteHTTPResponse(SuccessResponce(seq), w)
 }
