@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 
 	"github.com/BurntSushi/toml"
@@ -25,7 +26,16 @@ func main() {
 		log.Fatal(err)
 	}
 	s := apiserver.New(config)
+	fmt.Println(s)
 
+	// gprcServ := addr.NewGRPCServer()
+	// gprcServ.Start(
+	// 	&addr.GRPCServerConfig{
+	// 		Port:        "11564",
+	// 		Host:        "127.0.0.1",
+	// 		ConnTimeout: time.Minute * 5,
+	// 	},
+	// )
 	if err := s.Start(); err != nil {
 		log.Fatal(err)
 	}

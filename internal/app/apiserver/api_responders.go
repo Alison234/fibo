@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/go/http-rest-api/fibonaci"
+	"github.com/go/http-rest-api/fibonacci"
 )
 
 type Request struct {
@@ -14,9 +14,9 @@ type Request struct {
 }
 
 type CommonResponse struct {
-	Result  []fibonaci.Fibonaci `json:"result,omitempty"`
-	ErrMsg  string              `json:"error_msg,omitempty"`
-	Success bool                `json:"success"`
+	Result  []fibonacci.Fibonacci `json:"result,omitempty"`
+	ErrMsg  string                `json:"error_msg,omitempty"`
+	Success bool                  `json:"success"`
 }
 
 func (s *APIserver) WriteHTTPResponse(resp CommonResponse, w http.ResponseWriter) {
@@ -49,7 +49,7 @@ func ErrorResponce(errMsg string) CommonResponse {
 	return resp
 }
 
-func SuccessResponce(sequence []fibonaci.Fibonaci) CommonResponse {
+func SuccessResponce(sequence []fibonacci.Fibonacci) CommonResponse {
 	resp := CommonResponse{}
 	resp.Success = true
 	resp.Result = sequence

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go/http-rest-api/cache"
-	"github.com/go/http-rest-api/fibonaci"
+	"github.com/go/http-rest-api/fibonacci"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
@@ -13,17 +13,18 @@ type APIserver struct {
 	config           *Config
 	logger           *logrus.Logger
 	router           *mux.Router
-	fibonaciProvider fibonaci.FibonacciProvider
+	fibonaciProvider *fibonacci.FibonacciProvider
 	cache            cache.Cache
 }
 
 func New(config *Config) *APIserver {
 	cacheStore := cache.NewMemCacher("localhost:11211")
 	return &APIserver{
-		config: config,
-		logger: logrus.New(),
-		router: mux.NewRouter(),
-		cache:  cacheStore,
+		config:           config,
+		logger:           logrus.New(),
+		router:           mux.NewRouter(),
+		cache:            cacheStore,
+		fibonaciProvider: fibonacci.NewFibonacciProvider(),
 	}
 }
 

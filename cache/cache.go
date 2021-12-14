@@ -6,12 +6,12 @@ import (
 	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/go/http-rest-api/fibonaci"
+	"github.com/go/http-rest-api/fibonacci"
 )
 
 type Cache interface {
-	GetValue(key string) ([]fibonaci.Fibonaci, error)
-	SetValue(key string, value []fibonaci.Fibonaci) error
+	GetValue(key string) ([]fibonacci.Fibonacci, error)
+	SetValue(key string, value []fibonacci.Fibonacci) error
 }
 
 type MemCacher struct {
@@ -26,14 +26,14 @@ func NewMemCacher(addr string) *MemCacher {
 	return &MemCacher{addr: addr, cacheStore: client}
 }
 
-func (m *MemCacher) GetValue(key string) ([]fibonaci.Fibonaci, error) {
+func (m *MemCacher) GetValue(key string) ([]fibonacci.Fibonacci, error) {
 	item, err := m.cacheStore.Get(key)
 	if err != nil {
 		return nil, err
 	}
 	b := bytes.NewReader(item.Value)
 
-	var res []fibonaci.Fibonaci
+	var res []fibonacci.Fibonacci
 
 	if err := gob.NewDecoder(b).Decode(&res); err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (m *MemCacher) GetValue(key string) ([]fibonaci.Fibonaci, error) {
 	return res, nil
 }
 
-func (m *MemCacher) SetValue(key string, value []fibonaci.Fibonaci) error {
+func (m *MemCacher) SetValue(key string, value []fibonacci.Fibonacci) error {
 	var b bytes.Buffer
 
 	if err := gob.NewEncoder(&b).Encode(value); err != nil {
