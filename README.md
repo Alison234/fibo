@@ -2,7 +2,7 @@
 ### Установка memcashe 
 sudo apt install memcached libmemcached-tools
 ###  Билд сервера 
-make build && ./apiserver
+make build
 ###  запуск http серва
 ./apiserver --serverType http
 ###  запуск grpc серва
